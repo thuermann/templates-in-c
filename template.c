@@ -1,20 +1,20 @@
 /*
- * $Id: template.c,v 1.1 2014/01/17 13:08:49 urs Exp $
+ * $Id: template.c,v 1.2 2014/01/20 09:44:39 urs Exp $
  */
 
 #include <stdio.h>
 
-#define DEF(name, type) def_ ## name(type)
+#define DEFINE(name, type) TEMPLATE_ ## name(type)
 
 #define add_to(type, a, b) add_to_ ## type(a, b)
-#define def_add_to(type)			\
+#define TEMPLATE_add_to(type)			\
 void add_to(type, type *a, int b)		\
 {						\
 	*a = add(type, *a, b);			\
 }
 
 #define add(type, a, b) add_ ## type(a, b)
-#define def_add(type)				\
+#define TEMPLATE_add(type)			\
 type add(type, type a, type b)			\
 {						\
 	type tmp = a + b;			\
@@ -22,16 +22,16 @@ type add(type, type a, type b)			\
 }
 
 /* Define the functions for each instantiation */
-DEF(add, int)
-DEF(add, float)
-DEF(add, double)
+DEFINE(add, int)
+DEFINE(add, float)
+DEFINE(add, double)
 
-/* We can also use DEF() in another macro */
-#define DEF_MULTI(name) 	\
-	DEF(name, int)		\
-	DEF(name, float)	\
-	DEF(name, double)
-DEF_MULTI(add_to)
+/* We can also use DEFINE() in another macro */
+#define DEFINE_MULTI(name)	\
+	DEFINE(name, int)	\
+	DEFINE(name, float)	\
+	DEFINE(name, double)
+DEFINE_MULTI(add_to)
 
 int main(void)
 {
