@@ -1,31 +1,31 @@
 /*
- * $Id: template.c,v 1.1 2014/01/17 13:08:49 urs Exp $
+ * $Id: template.c,v 1.2 2014/01/20 09:44:49 urs Exp $
  */
 
 #include <stdio.h>
 
-#define DEF(name)				\
-	def_ ## name(int)			\
-	def_ ## name(float)			\
-	def_ ## name(double)
+#define DEFINE(name)				\
+	TEMPLATE_ ## name(int)			\
+	TEMPLATE_ ## name(float)		\
+	TEMPLATE_ ## name(double)
 
 #define foo(type, a, b) foo_ ## type(a, b)
-#define def_foo(type)				\
+#define TEMPLATE_foo(type)			\
 void foo(type, type *a, int b)			\
 {						\
 	*a = bar(type, *a, b);			\
 }
 
 #define bar(type, a, b) bar_ ## type(a, b)
-#define def_bar(type)				\
+#define TEMPLATE_bar(type)			\
 type bar(type, type a, type b)			\
 {						\
 	type tmp = a + b;			\
 	return tmp;				\
 }
 
-DEF(bar)
-DEF(foo)
+DEFINE(bar)
+DEFINE(foo)
 
 int main(void)
 {
