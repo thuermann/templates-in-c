@@ -1,0 +1,3 @@
+This is a short demo on how to use the C preprocessor to define
+template functions having one or more type names as parameters,
+in a way that somewhat resembles C++.
